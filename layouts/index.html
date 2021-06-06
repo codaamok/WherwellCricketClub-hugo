@@ -1,0 +1,83 @@
+<!--
+	Alpha by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+
+{{ partial "header" . }}
+{{ partial "nav" . }}
+{{ partial "banner" . }}
+
+			{{ "<!-- Main -->" | safeHTML }}
+				<section id="main" class="container">
+
+					<section class="box special">
+						<header class="major">
+							<h1>{{ .Site.Params.title}}</h1><a name="services"></a>
+						</header>
+						<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2501.643018361476!2d-1.43723534813848!3d51.17037037948107!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4874089ffeb17c3b%3A0x4da9c4ee1bdef3e!2sWherwell%20Cricket%20Club!5e0!3m2!1sen!2suk!4v1622982379106!5m2!1sen!2suk" 
+							width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+					</section>
+
+
+					{{ if .Params.Feature_icons.enable }}
+						{{ $tiles := .Params.Feature_icons.tile }}
+						{{ $len := (len $tiles) }}
+						<a name="feature-icons"></a>
+						<section class="box special features">
+							<div class="features-row">
+								{{ range $index, $key := $tiles}}
+									<section>
+										{{ if $key.url }}<a href="{{ $key.url | absURL }}"><div>{{ end }}
+											<span class="icon major {{ $key.icon_pack }} {{ $key.icon }} accent{{- $key.accent -}}"></span>
+											<h3>{{ $key.title }}</h3>
+											<p>{{ $key.text | markdownify }}</p>
+										{{ if $key.url }}</div></a>{{ end }}
+									</section>
+									{{ if and (mod $index 2) (lt (add $index 1) $len) }}
+											</div>
+											<div class="features-row">
+									{{ end }}
+								{{ end }}
+							</div>
+						</section>
+					{{ end }}
+
+					{{ if .Params.Feature_images.enable }}
+						{{ $tiles := .Params.Feature_images.tile }}
+						{{ $len := (len $tiles) }}
+						<a name="feature-images"></a>
+						<div class="row">
+							{{ range $index, $key := $tiles }}
+								<div class="col-6 col-12-narrower">
+									<section class="box special">
+										<span class="image featured"><img src="{{ $key.image | absURL}}" alt="" /></span>
+										<h3>{{ $key.title }}</h3>
+										<p>{{ $key.text | markdownify }}</p>
+										{{ if $key.button_text }}
+											<ul class="actions special">
+												<li><a href="{{ $key.url | absURL }}" class="button alt">{{ $key.button_text }}</a></li>
+											</ul>
+											{{ end }}
+										</section>
+									</div>
+									{{ if and (mod $index 2) (lt (add $index 1) $len) }}
+										</div>
+										<div class="row">
+									{{ end }}
+							{{ end }} {{/* end range $tiles*/}}
+					</div>
+					{{ end }} {{/* end if Feature_images*/}}
+
+				</section>
+
+			{{ "<!-- CTA -->" | safeHTML }}
+				<section id="cta"><a name="call-to-action"></a>
+
+					<h2>{{ .Params.CTA.heading}}</h2>
+					<p>{{ .Params.CTA.message}}</p>
+					{{ partial "contact" .}}
+
+				</section>
+{{ partialCached "footer" . }}
+{{ partial "scripts" . }}

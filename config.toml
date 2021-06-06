@@ -1,0 +1,130 @@
+baseURL = "http://new.wherwellcc.co.uk/"
+languageCode = "en-gb"
+theme = "alpha-church"
+title = "Wherwell"
+
+rssLimit = 5
+paginate = 4
+
+enableEmoji = true
+
+# Enter your tracking code to enable Google Analytics
+googleAnalytics = ""
+
+enableInlineShortcodes = true
+
+[markup.goldmark.renderer]
+unsafe = true
+
+[taxonomies]
+  tag = "tags"
+  preacher = "preachers"
+  series = "series"
+
+#This theme can generate a multi-level menu.
+#Use weight= to specify the order of menu items, and parent= to create a submenu item.
+[menu]
+  [[menu.main]]
+    name = "Home"
+    url = "/"
+    weight = 1
+
+  [[menu.main]]
+    name = "Fixtures"
+    url = "/fixtures"
+    weight = 2
+
+  [[menu.main]]
+    name = "Reports"
+    url = "#"
+    weight = 3
+
+  [[menu.main]]
+    name = "Wherwell XI"
+    parent = "Reports"
+    url = "/reports-wherwell-xi"
+    weight = 4
+
+  [[menu.main]]
+    name = "Friendlies"
+    parent = "Reports"
+    url = "/reports-friendlies"
+    weight = 5
+
+  [[menu.main]]
+    name = "Averages"
+    parent = "Reports"
+    url = "/averages"
+    weight = 6
+
+  [[menu.main]]
+    name = "Shop"
+    url = "https://seriouscricket.co.uk/teamwear/stores/wherwell-cricket-club"
+    weight = 7
+
+  [[menu.main]]
+    name = "Club Documents"
+    url = "/documents"
+    weight = 8
+
+  [[menu.main]]
+    name = "Contact"
+    url = "/contact"
+    weight = 9
+
+# Paramaters for the whole site
+[params]
+  title = "Wherwell Cricket Club"
+  languageCode = "en" # For accessibility this needs to be set. You can find all language codes at https://www.w3schools.com/tags/ref_language_codes.asp
+  instant_page = true
+
+  customCSS = ["custom.css"]
+
+  [params.favicon]
+    sml = "/example16.png"
+    med = "/example32.png"
+    #lge = "example96.png"
+
+  [params.banner]
+    image = "img/banner.jpeg"
+
+#  [params.style]
+#    googleFonts = ["Cardo", "Crimson+Text", "Merriweather", "Playfair+Display:400,700", "Roboto+Slab"]
+
+  [params.podcast]
+    title = "Listen to Alpha Church"
+    summary = "Alpha-Church sermons, talks, messages—podcasted."
+    email = "test@example.com"
+    copyright = "The files in the podcast are in the public domain."
+    image = "img/podcast-cover.jpg"
+    category = "Religion & Spirituality"
+    sub_category = "Christianity"
+    iTunes = "https://itunes.apple.com/us/podcast/tgc-word-of-the-week/id1034013280"
+    feed = "https://www.thegospelcoalition.org/podcasts/word-of-the-week/feed/?feed=podcast"
+
+  [params.contact]
+    #Use this section to automate contact form.
+    #Set service to either "netlify", "formspree" or "php"
+    #For formspree, please setup an account at https://formspree.io/
+    #For netlify, please read https://www.netlify.com/docs/form-handling/
+    #
+    #If you use netlify, you'll need to set the confirm_page value (otherwise users will see a generic netlify response)
+    #If you use formspree, you'll need to set your formspree form_id.
+    #
+    #If you use php, you need to host this site on a Server capable of running php.
+    # Please edit the /static/contact_mail.php file from the exampleSite.
+    service = "netlify" #or "formspree" or "php"
+    confirm_page = "/contact_thanks" #only used by netlify
+    # form_id="" #only used by formspree
+
+    [[params.links]]
+      service = "Twitter"
+      icon = "fa-twitter"
+      icon_pack = "fab"
+      link = "https://twitter.com/wherwellcc"
+
+    [[params.links]]
+      service = "Instagram"
+      icon = "fa-instagram"
+      icon_pack = "fab"
+      link = "https://www.instagram.com/wherwellcc/"
