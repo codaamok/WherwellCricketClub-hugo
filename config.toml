@@ -1,4 +1,4 @@
-baseURL = "http://new.wherwellcc.co.uk/"
+baseURL = "https://new.wherwellcc.co.uk/"
 languageCode = "en-gb"
 theme = "alpha-church"
 title = "Wherwell"
