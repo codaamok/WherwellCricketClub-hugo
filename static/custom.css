@@ -9,3 +9,14 @@ header.major {
 #cta {
     background-color: #003993;
 }
+
+#cta input[type=submit] {
+    color: #152552;
+    border: 1px solid;
+}
+
+#cta input[type=submit]:hover {
+    background: #002c74;
+    color: white;
+    border: 1px solid white;
+  }

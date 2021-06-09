@@ -69,7 +69,7 @@ unsafe = true
 
   [[menu.main]]
     name = "Contact"
-    url = "/contact"
+    url = "#cta"
     weight = 9
 
 # Paramaters for the whole site
