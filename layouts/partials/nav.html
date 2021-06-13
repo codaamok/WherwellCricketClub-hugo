@@ -1,8 +1,6 @@
 <body {{ if .IsHome }} class="landing" {{ end }} >
   <div id="page-wrapper">
     <header id="header" {{ if .IsHome }} class="alt" {{ end }} >
-      <a href="/"><img src="/img/logo.png" style="margin: 1em;"/></a>
-
       {{ "<!-- Nav -->" | safeHTML }}
       <nav id="nav">
         <ul>

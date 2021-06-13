@@ -4,7 +4,7 @@ theme = "alpha-church"
 title = "Wherwell"
 
 rssLimit = 5
-paginate = 4
+paginate = 10
 
 enableEmoji = true
 
@@ -17,9 +17,8 @@ enableInlineShortcodes = true
 unsafe = true
 
 [taxonomies]
-  tag = "tags"
-  preacher = "preachers"
-  series = "series"
+  category = "categories"
+  report = "reports"
 
 #This theme can generate a multi-level menu.
 #Use weight= to specify the order of menu items, and parent= to create a submenu item.
@@ -36,13 +35,13 @@ unsafe = true
 
   [[menu.main]]
     name = "Reports"
-    url = "#"
+    url = "/reports"
     weight = 3
 
   [[menu.main]]
     name = "Wherwell XI"
     parent = "Reports"
-    url = "/reports-wherwell-xi"
+    url = "/categories/xi-reports/"
     weight = 4
 
   [[menu.main]]
@@ -81,8 +80,8 @@ unsafe = true
   customCSS = ["custom.css"]
 
   [params.favicon]
-    sml = "/example16.png"
-    med = "/example32.png"
+    sml = "/favicon-16x16.png"
+    med = "/favicon-32x32.png"
     #lge = "example96.png"
 
   [params.banner]
@@ -121,10 +120,12 @@ unsafe = true
       service = "Twitter"
       icon = "fa-twitter"
       icon_pack = "fab"
+      colourhex = "#00acee"
       link = "https://twitter.com/wherwellcc"
 
     [[params.links]]
       service = "Instagram"
-      icon = "fa-instagram"
+      icon = "fa-instagram instagram"
       icon_pack = "fab"
-      link = "https://www.instagram.com/wherwellcc/"
+      colourhex = "#3f729b"
+      link = "https://instagram.com/wherwellcc/"

@@ -1,0 +1,47 @@
+  <div class="box">
+  {{ $pages := .Paginator.Pages }}
+  {{ $len := (len $pages) }}
+  {{ range $index, $key := $pages }}
+    {{ if .Params.images }}
+      <div class="row no-collapse 50% uniform">
+        <div class="col-6 col-12-mobilep">
+          <a href="{{ .Permalink }}">{{ if .Draft }}DRAFT: {{end}}{{ .Title | markdownify }}</a>
+          {{ with .Params.subtitle }} | {{ . | markdownify }} | {{ end }}
+          {{ with .Params.passage }} | {{ . | markdownify }} | {{ end }}
+          <br>
+          {{ .Summary | plainify | safeHTML }}
+          {{ if .Truncated }}
+            <br><br><a class="button small alt" href="{{ .Permalink }}" >
+                Read more
+            </a>
+          {{ end }} {{/* if */}}
+        </div>
+        <div class="col-6 col-12-mobilep">
+          <span class="image fit">
+            <a href="{{ .Permalink }}">
+              <img src="{{ index .Params.images 0 | absURL }}"></img>
+            </a/>
+          </span>
+        </div>
+    </div>
+    {{ else }}
+    <div>
+      <a href="{{ .Permalink }}">{{ if .Draft }}DRAFT: {{end}}{{ .Title | markdownify }}</a>
+      <br>
+      {{ .Summary | plainify | safeHTML }}
+      {{ if .Truncated }}
+        <br><br><a class="button small alt" href="{{ .Permalink }}" >
+            Read more
+        </a>
+        <br><br>Categories: {{ range $item := .Params.categories }}
+          <a href="/categories/{{ $item }}">{{ $item }}</a>, 
+        {{ end }}
+      {{ end }} {{/* if */}}
+    </div>
+    {{ end }}{{/* if */}}
+    {{ if lt (add $index 1) $len }}
+      <hr />
+    {{ end }}{{/* if */}}
+  {{ end }} {{/* range */}}
+  {{ template "_internal/pagination.html" . }}
+  </div>

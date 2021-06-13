@@ -1,0 +1,6 @@
+---
+title: "Wherwell v Hungerford 2nd XI (home, 06/07/2013)"
+date: "2014-07-27"
+---
+
+KJM sponsored Wherwell 2nd XI, playing in there fourth home game in a row, lost the toss to Hungerford and were put into field with the sun beating down on the Playing Fields ground. Ollie Emslie and Harry Trebert opened the bowling and started with tight lines and good lengths, and both took a couple of wickets each in the opening spells of five overs. Hungerford were losing wickets at regular intervals with no one scoring above 20. Wherwell bowled out Hungerford for just 81. Adam Cook making a welcome return to the team cleaning up the tail with 3 for 3 off just 3 overs, and Rob Weeks also picking up 3 for 4 off 7 overs. After some tea Wherwell knew the had to keep there discipline in chasing the low total. After losing the wicket of Horne in the fifth over with the score on 18, there wasn't any need to panic just yet as Harry Trebert 20 and Mick Ling 17 began to build a patnership taking Wherwell to the total, but when they both departed within two overs of each other with the score just on 60, and still 22 required there was a middle order collapse, and Wherwell were 70 for 7 still requiring 12, however Mark Pembry and Emslie batted sensible and saw the side home, for thier third win of the season.
