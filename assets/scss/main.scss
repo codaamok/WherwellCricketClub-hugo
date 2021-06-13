@@ -1176,7 +1176,7 @@
 
 		nav {
 			border-radius: 0 0 15px 15px;
-			background-color: rgba(43,43,43, 0.6);
+			background-color: rgba(68, 68, 68, 0.75);
 			height: inherit;
 			line-height: inherit;
 			position: absolute;
@@ -1776,7 +1776,7 @@
 		        background: rgba(192, 192, 192, 0.75);
 		        border-radius: _size(border-radius);
 		        color: #fff;
-		        font-family: "Font Awesome 5 Free";
+		        font-family: "Font Awesome 5 Pro";
 		        font-weight: 900;
 		        content: "\f0c9";
 		        display: block;
@@ -2136,7 +2136,7 @@
 }
 
 .marker::before {
-	font-family: "Font Awesome 5 Free";
+	font-family: "Font Awesome 5 Pro";
 	font-weight: 900;
 	content: "\f51d";
 	text-align: center; ;

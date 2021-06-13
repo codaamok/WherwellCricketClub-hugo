@@ -40,6 +40,20 @@
     title = "Club Documents"
     url = "documents"
 
+  [[feature_icons.tile]]
+    icon = "fa-handshake"
+    icon_pack = "fal"
+    accent = "2"
+    title = "Sponsors"
+    url = "sponsors"
+
+    [[feature_icons.tile]]
+    icon = "fa-map-marker-alt"
+    icon_pack = "fal"
+    accent = "5"
+    title = "Find Us"
+    url = "findus"
+
 [CTA]
   heading = "Contact Us"
 +++
