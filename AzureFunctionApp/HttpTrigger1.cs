@@ -7,6 +7,7 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace WherwellCC.Contact
 {
@@ -19,17 +20,16 @@ namespace WherwellCC.Contact
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
 
-            if (req.Query.ContainsKey("warmup")) 
+            string name = req.Query["name"];
+
+            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+            JObject data = JsonConvert.DeserializeObject<JObject>(requestBody);
+
+            if (data["warmup"] == "true")
             {
                 log.LogInformation("Warm up received");
                 return new OkResult();
             }
-
-            string name = req.Query["name"];
-
-            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            dynamic data = JsonConvert.DeserializeObject(requestBody);
-            name = name ?? data?.name;
 
             string responseMessage = string.IsNullOrEmpty(name)
                 ? "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response."
