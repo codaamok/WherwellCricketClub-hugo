@@ -19,4 +19,12 @@ header.major {
     background: #002c74;
     color: white;
     border: 1px solid white;
-  }
+}
+
+div.box p img {
+    width: 100%;
+}
+
+img[alt$="Wherwell"] { 
+    
+}

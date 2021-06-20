@@ -17,14 +17,14 @@
     icon_pack = "fal"
     accent = "1"
     title = "Fixtures"
-    url = "fixtures"
+    url = "https://wherwell.play-cricket.com/Matches?tab=Fixture"
   
   [[feature_icons.tile]]
     icon = "fa-cricket"
     icon_pack = "fal"
     accent = "2"
     title = "Reports"
-    url = "reports"
+    url = "/categories/xi-reports/"
 
   [[feature_icons.tile]]
     icon = "fa-shopping-cart"

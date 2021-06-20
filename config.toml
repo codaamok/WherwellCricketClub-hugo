@@ -29,13 +29,13 @@ unsafe = true
     weight = 1
 
   [[menu.main]]
-    name = "Fixtures"
-    url = "/fixtures"
+    name = "Play Cricket"
+    url = "https://wherwell.play-cricket.com"
     weight = 2
 
   [[menu.main]]
     name = "Reports"
-    url = "/reports"
+    url = "/categories/xi-reports/"
     weight = 3
 
   [[menu.main]]
@@ -47,7 +47,7 @@ unsafe = true
   [[menu.main]]
     name = "Friendlies"
     parent = "Reports"
-    url = "/reports-friendlies"
+    url = "/categories/friendlyreports/"
     weight = 5
 
   [[menu.main]]
@@ -77,7 +77,7 @@ unsafe = true
   languageCode = "en" # For accessibility this needs to be set. You can find all language codes at https://www.w3schools.com/tags/ref_language_codes.asp
   instant_page = true
 
-  customCSS = ["custom.css"]
+  customCSS = ["style/custom.css"]
 
   [params.favicon]
     sml = "/favicon-16x16.png"
@@ -122,6 +122,13 @@ unsafe = true
       icon_pack = "fab"
       colourhex = "#00acee"
       link = "https://twitter.com/wherwellcc"
+
+    [[params.links]]
+      service = "Facebook"
+      icon = "fa-facebook facebook"
+      icon_pack = "fab"
+      colourhex = "#3f729b"
+      link = "https://facebook.com/wherwellcc/"
 
     [[params.links]]
       service = "Instagram"
