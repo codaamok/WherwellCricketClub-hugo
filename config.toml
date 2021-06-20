@@ -77,7 +77,7 @@ unsafe = true
   languageCode = "en" # For accessibility this needs to be set. You can find all language codes at https://www.w3schools.com/tags/ref_language_codes.asp
   instant_page = true
 
-  customCSS = ["/style/custom.css"]
+  customCSS = ["style/custom.css"]
 
   [params.favicon]
     sml = "/favicon-16x16.png"
