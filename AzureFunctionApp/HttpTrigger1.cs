@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.IO;
@@ -16,8 +17,6 @@ namespace WherwellCC.Contact
 
     public static class HttpTrigger1
     {
-        private static readonly HttpClient client = new HttpClient();
-
         [FunctionName("HttpTrigger1")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
@@ -34,29 +33,39 @@ namespace WherwellCC.Contact
                 return new OkResult();
             }
 
-            string ClientId = System.Environment.GetEnvironmentVariable("AAD_APP_ID_WHERWELLCC_ADMIN");
-            string TenantName = "cookadamcouk.onmicrosoft.com";
-            string ClientSecret = System.Environment.GetEnvironmentVariable("AAD_APP_SECRET_THECOOKS_WEDDING");
-            string Resource = "https://graph.microsoft.com/";
+            var token = await GraphAPI.NewAccessToken(
+                System.Environment.GetEnvironmentVariable("AAD_APP_ID_WHERWELLCC_ADMIN"),
+                "cookadamcouk.onmicrosoft.com",
+                System.Environment.GetEnvironmentVariable("AAD_APP_SECRET_THECOOKS_WEDDING")
+            );
 
-            Dictionary<string, string> ReqTokenBody = new Dictionary <string, string>
+            log.LogInformation("Printing all POST'ed data:");
+
+            foreach (var item in data)
             {
-                { "Grant_Type", "client_credentials" },
-                { "Scope", "https://graph.microsoft.com/.default" },
-                { "client_Id", ClientId },
-                { "client_Secret", ClientSecret }
+                log.LogInformation($"- {item.Key}: {item.Value}");
+            }
+
+            var body = new {
+                message = new {
+                    Subject = "Hello world",
+                    Importance = "High",
+                    Body = new {
+                        ContentType = "Text",
+                        Content = "This is some sample text"
+                    },
+                    ToRecipients = new {
+                        EmailAddress = new {
+                            Address = "me@cookadam.co.uk"
+                        }
+                    },
+                },
             };
 
-            log.LogInformation("Requesting access token");
-
-            var content = new FormUrlEncodedContent(ReqTokenBody);
-
-            var response = await client.PostAsync($"https://login.microsoftonline.com/{TenantName}/oauth2/v2.0/token", content);
-
-            var responseString = await response.Content.ReadAsStringAsync();
-
-            var result = JsonConvert.DeserializeObject<GraphAPI>(responseString);
+            var tosend = JsonConvert.SerializeObject(body);
             
+            var x = token.PostData("https://graph.microsoft.com/v1.0/users/me@cookadam.co.uk/sendMail", tosend);
+
             return new OkResult();
         }
     }
