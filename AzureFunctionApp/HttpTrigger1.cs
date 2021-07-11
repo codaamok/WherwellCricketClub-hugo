@@ -24,6 +24,8 @@ namespace WherwellCC.Contact
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
 
+            GraphAPIClient GraphAPIClient = new GraphAPIClient();
+
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             JObject data = JsonConvert.DeserializeObject<JObject>(requestBody);
 
@@ -33,11 +35,17 @@ namespace WherwellCC.Contact
                 return new OkResult();
             }
 
-            var token = await GraphAPI.NewAccessToken(
-                System.Environment.GetEnvironmentVariable("AAD_APP_ID_WHERWELLCC_ADMIN"),
-                "cookadamcouk.onmicrosoft.com",
-                System.Environment.GetEnvironmentVariable("AAD_APP_SECRET_THECOOKS_WEDDING")
-            );
+            try {
+                GraphAPIClient = await GraphAPIClient.NewAccessToken(
+                    System.Environment.GetEnvironmentVariable("AAD_APP_ID_WHERWELLCC_ADMIN"),
+                    "cookadamcouk.onmicrosoft.com",
+                    System.Environment.GetEnvironmentVariable("AAD_APP_SECRET_WHERWELLCC_ADMIN"),
+                    log
+                );
+            }
+            catch (Exception ex) {
+                log.LogError($"Failed to request access token: {ex.Message.ToString()}");
+            }
 
             log.LogInformation("Printing all POST'ed data:");
 
@@ -47,26 +55,38 @@ namespace WherwellCC.Contact
             }
 
             var body = new {
-                message = new {
-                    Subject = "Hello world",
-                    Importance = "High",
+                Message = new {
+                    Subject = "Wherwell CC Web Contact Form",
                     Body = new {
                         ContentType = "Text",
-                        Content = "This is some sample text"
+                        Content = String.Join("\n", data["message"].ToString())
                     },
-                    ToRecipients = new {
-                        EmailAddress = new {
-                            Address = "me@cookadam.co.uk"
-                        }
+                    ToRecipients = new[] {
+                        new {
+                            EmailAddress = new {
+                                Address = "me@cookadam.co.uk"
+                            },
+                        },
                     },
                 },
+                SaveToSentItems = true,
+                isDraft = false,
             };
 
             var tosend = JsonConvert.SerializeObject(body);
             
-            var x = token.PostData("https://graph.microsoft.com/v1.0/users/me@cookadam.co.uk/sendMail", tosend);
+            HttpResponseMessage result = new HttpResponseMessage();
 
-            return new OkResult();
+            try {
+                result = await GraphAPIClient.PostData("https://graph.microsoft.com/v1.0/users/me@cookadam.co.uk/sendMail", tosend);
+                result.EnsureSuccessStatusCode();
+                log.LogInformation("Successfully sent message");
+                return new RedirectResult("https://new.wherwelcc.co.uk/contactsuccess.html");
+            }
+            catch (Exception ex) {
+                log.LogError($"Failed to send message: {ex.Message.ToString()}");
+                return new RedirectResult("https://new.wherwelcc.co.uk/contactfailed.html");
+            }
         }
     }
 }

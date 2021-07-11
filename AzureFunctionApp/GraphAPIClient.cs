@@ -2,6 +2,7 @@ using System;
 using System.Text;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -14,7 +15,7 @@ using Newtonsoft.Json.Linq;
 
 namespace WherwellCC.Contact
 {
-    public class GraphAPI
+    public class GraphAPIClient
     {
         private static readonly HttpClient client = new HttpClient();
 
@@ -23,7 +24,7 @@ namespace WherwellCC.Contact
         public string ext_expires_in { get; set; }
         public string access_token { get; set; }
 
-        public static async Task<GraphAPI> NewAccessToken(string clientId, string tenantName, string clientSecret) {
+        public async Task<GraphAPIClient> NewAccessToken(string clientId, string tenantName, string clientSecret, ILogger log) {
             Dictionary<string, string> ReqTokenBody = new Dictionary <string, string>
             {
                 { "Grant_Type", "client_credentials" },
@@ -32,17 +33,17 @@ namespace WherwellCC.Contact
                 { "client_Secret", clientSecret }
             };
             var content = new FormUrlEncodedContent(ReqTokenBody);
+            log.LogInformation("Getting new access token");
             var response = await client.PostAsync($"https://login.microsoftonline.com/{tenantName}/oauth2/v2.0/token", content);
+            response.EnsureSuccessStatusCode();
             var responseString = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<GraphAPI>(responseString);
-            return result;
+            return JsonConvert.DeserializeObject<GraphAPIClient>(responseString);
         }
 
         public async Task<HttpResponseMessage> PostData(string path, string body)
         {
             var content = new StringContent(body, Encoding.UTF8, "application/json");
-            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + this.access_token);
-            client.DefaultRequestHeaders.Add("Content-Type", "application/json");
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", this.access_token);
             var response = await client.PostAsync(path, content);
             return response;
         }
