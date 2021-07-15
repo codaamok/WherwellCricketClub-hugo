@@ -56,7 +56,7 @@ namespace WherwellCC.Contact
 
             var body = new {
                 Message = new {
-                    Subject = "Wherwell CC Web Contact Form",
+                    Subject = "Contact Us",
                     Body = new {
                         ContentType = "Text",
                         Content = String.Join("\n", data["message"].ToString())
@@ -67,7 +67,24 @@ namespace WherwellCC.Contact
                                 Address = "me@cookadam.co.uk"
                             },
                         },
+                        new {
+                            EmailAddress = new {
+                                Address = "adamcook807@gmail.com"
+                            },
+                        },
                     },
+                    Sender = new {
+                        EmailAddress = new {
+                            Address = "web@wherwellcc.co.uk",
+                            Name = "Website Inquiry"
+                        }
+                    },
+                    From = new {
+                        EmailAddress = new {
+                            Address = "web@wherwellcc.co.uk",
+                            Name = "Website Inquiry"
+                        }
+                    }
                 },
                 SaveToSentItems = true,
                 isDraft = false,
@@ -78,14 +95,14 @@ namespace WherwellCC.Contact
             HttpResponseMessage result = new HttpResponseMessage();
 
             try {
-                result = await GraphAPIClient.PostData("https://graph.microsoft.com/v1.0/users/me@cookadam.co.uk/sendMail", tosend);
+                result = await GraphAPIClient.PostData("https://graph.microsoft.com/v1.0/users/web@wherwellcc.co.uk/sendMail", tosend);
                 result.EnsureSuccessStatusCode();
                 log.LogInformation("Successfully sent message");
-                return new RedirectResult("https://new.wherwelcc.co.uk/contactsuccess.html");
+                return new RedirectResult("https://new.wherwellcc.co.uk/contactsuccess.html");
             }
             catch (Exception ex) {
                 log.LogError($"Failed to send message: {ex.Message.ToString()}");
-                return new RedirectResult("https://new.wherwelcc.co.uk/contactfailed.html");
+                return new RedirectResult("https://new.wherwellcc.co.uk/contactfailed.html");
             }
         }
     }
