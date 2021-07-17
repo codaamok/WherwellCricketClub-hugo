@@ -55,34 +55,39 @@ namespace WherwellCC.Contact
             }
 
             var body = new {
-                Message = new {
-                    Subject = "Contact Us",
-                    Body = new {
-                        ContentType = "Text",
-                        Content = String.Join("\n", data["message"].ToString())
-                    },
-                    ToRecipients = new[] {
-                        new {
-                            EmailAddress = new {
-                                Address = "me@cookadam.co.uk"
-                            },
-                        },
-                        new {
-                            EmailAddress = new {
-                                Address = "adamcook807@gmail.com"
-                            },
+                Subject = "Contact Us",
+                Body = new {
+                    ContentType = "Text",
+                    Content = String.Join("\n", data["message"].ToString())
+                },
+                ToRecipients = new[] {
+                    new {
+                        EmailAddress = new {
+                            Address = "me@cookadam.co.uk"
                         },
                     },
-                    Sender = new {
+                    new {
                         EmailAddress = new {
-                            Address = "web@wherwellcc.co.uk",
-                            Name = "Website Inquiry"
-                        }
+                            Address = "adamcook807@gmail.com"
+                        },
                     },
-                    From = new {
+                },
+                Sender = new {
+                    EmailAddress = new {
+                        Address = "web@wherwellcc.co.uk",
+                        Name = "Website Inquiry"
+                    }
+                },
+                From = new {
+                    EmailAddress = new {
+                        Address = "web@wherwellcc.co.uk",
+                        Name = "Website Inquiry"
+                    }
+                },
+                ReplyTo = new[] {
+                    new {
                         EmailAddress = new {
-                            Address = "web@wherwellcc.co.uk",
-                            Name = "Website Inquiry"
+                            Address = "mayavthomas@outlook.com"
                         }
                     }
                 },
@@ -95,7 +100,7 @@ namespace WherwellCC.Contact
             HttpResponseMessage result = new HttpResponseMessage();
 
             try {
-                result = await GraphAPIClient.PostData("https://graph.microsoft.com/v1.0/users/web@wherwellcc.co.uk/sendMail", tosend);
+                result = await GraphAPIClient.PostData("https://graph.microsoft.com/v1.0/users/web@wherwellcc.co.uk/20210717.1844@cookadam.co.uk/createReply", tosend);
                 result.EnsureSuccessStatusCode();
                 log.LogInformation("Successfully sent message");
                 return new RedirectResult("https://new.wherwellcc.co.uk/contactsuccess.html");
