@@ -100,7 +100,7 @@ namespace WherwellCC.Contact
             HttpResponseMessage result = new HttpResponseMessage();
 
             try {
-                result = await GraphAPIClient.PostData("https://graph.microsoft.com/v1.0/users/web@wherwellcc.co.uk/20210717.1844@cookadam.co.uk/createReply", tosend);
+                result = await GraphAPIClient.SendData("POST", "https://graph.microsoft.com/v1.0/users/web@wherwellcc.co.uk/20210717.1844@cookadam.co.uk/createReply", tosend);
                 result.EnsureSuccessStatusCode();
                 log.LogInformation("Successfully sent message");
                 return new RedirectResult("https://new.wherwellcc.co.uk/contactsuccess.html");

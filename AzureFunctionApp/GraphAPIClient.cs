@@ -24,7 +24,13 @@ namespace WherwellCC.Contact
         public string ext_expires_in { get; set; }
         public string access_token { get; set; }
 
-        public async Task<GraphAPIClient> NewAccessToken(string clientId, string tenantName, string clientSecret, ILogger log) {
+        public async Task<GraphAPIClient> NewAccessToken(
+            string clientId, 
+            string tenantName, 
+            string clientSecret, 
+            ILogger log
+        )
+        {
             Dictionary<string, string> ReqTokenBody = new Dictionary <string, string>
             {
                 { "Grant_Type", "client_credentials" },
@@ -40,11 +46,26 @@ namespace WherwellCC.Contact
             return JsonConvert.DeserializeObject<GraphAPIClient>(responseString);
         }
 
-        public async Task<HttpResponseMessage> PostData(string path, string body)
+        public async Task<HttpResponseMessage> SendData(
+            string method, 
+            string path, 
+            string body
+        )
         {
             var content = new StringContent(body, Encoding.UTF8, "application/json");
+            HttpResponseMessage response = new HttpResponseMessage();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", this.access_token);
-            var response = await client.PostAsync(path, content);
+
+            switch (method)
+            {
+                case "POST":
+                    response = await client.PostAsync(path, content);
+                    break;
+                case "PATCH":
+                    response = await client.PatchAsync(path, content);
+                    break;
+            }
+            
             return response;
         }
 
