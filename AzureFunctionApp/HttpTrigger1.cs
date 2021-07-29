@@ -3,6 +3,7 @@ using System.Text;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.IO;
+using System.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
@@ -24,91 +25,69 @@ namespace WherwellCC.Contact
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
 
-            GraphAPIClient GraphAPIClient = new GraphAPIClient();
-
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            JObject data = JsonConvert.DeserializeObject<JObject>(requestBody);
 
-            if (data["warmup"].ToString() == "true")
+            var data = HttpUtility.ParseQueryString(requestBody);
+            // JObject data = JsonConvert.DeserializeObject<JObject>(requestBody);
+
+            if (Array.Exists(data.AllKeys, element => element == "warmup"))
             {
                 log.LogInformation("Warm up received");
                 return new OkResult();
-            }
-
-            try {
-                GraphAPIClient = await GraphAPIClient.NewAccessToken(
-                    System.Environment.GetEnvironmentVariable("AAD_APP_ID_WHERWELLCC_ADMIN"),
-                    "cookadamcouk.onmicrosoft.com",
-                    System.Environment.GetEnvironmentVariable("AAD_APP_SECRET_WHERWELLCC_ADMIN"),
-                    log
-                );
-            }
-            catch (Exception ex) {
-                log.LogError($"Failed to request access token: {ex.Message.ToString()}");
             }
 
             log.LogInformation("Printing all POST'ed data:");
 
             foreach (var item in data)
             {
-                log.LogInformation($"- {item.Key}: {item.Value}");
+                log.LogInformation($"- {item}: {data[item.ToString()]}");
             }
 
-            var body = new {
-                Subject = "Contact Us",
-                Body = new {
-                    ContentType = "Text",
-                    Content = String.Join("\n", data["message"].ToString())
+            GraphAPIMailClient mail = new GraphAPIMailClient(
+                subject: "Website Contact",
+                content: String.Join("\n", data["message"].ToString()),
+                toRecipients: new Dictionary<string, string> 
+                { 
+                    { "admin@wherwellcc.co.uk", "Wherwell Cricket Club" }
                 },
-                ToRecipients = new[] {
-                    new {
-                        EmailAddress = new {
-                            Address = "me@cookadam.co.uk"
-                        },
-                    },
-                    new {
-                        EmailAddress = new {
-                            Address = "adamcook807@gmail.com"
-                        },
-                    },
-                },
-                Sender = new {
-                    EmailAddress = new {
-                        Address = "web@wherwellcc.co.uk",
-                        Name = "Website Inquiry"
-                    }
-                },
-                From = new {
-                    EmailAddress = new {
-                        Address = "web@wherwellcc.co.uk",
-                        Name = "Website Inquiry"
-                    }
-                },
-                ReplyTo = new[] {
-                    new {
-                        EmailAddress = new {
-                            Address = "mayavthomas@outlook.com"
-                        }
-                    }
-                },
-                SaveToSentItems = true,
-                isDraft = false,
-            };
-
-            var tosend = JsonConvert.SerializeObject(body);
-            
-            HttpResponseMessage result = new HttpResponseMessage();
+                user: "admin@wherwellcc.co.uk"
+            );
 
             try {
-                result = await GraphAPIClient.SendData("POST", "https://graph.microsoft.com/v1.0/users/web@wherwellcc.co.uk/20210717.1844@cookadam.co.uk/createReply", tosend);
-                result.EnsureSuccessStatusCode();
-                log.LogInformation("Successfully sent message");
-                return new RedirectResult("https://new.wherwellcc.co.uk/contactsuccess.html");
+                await mail.CreateDraft(log);
+            }
+            catch (Exception ex) {
+                log.LogError($"Failed to create message: {ex.Message.ToString()}");
+                // return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+                return new RedirectResult("https://new.wherwellcc.co.uk/contactfailed");
+            }
+
+            try {
+                await mail.UpdateMessage(
+                    log: log,
+                    replyToRecipients: new Dictionary<string, string> 
+                    { 
+                        { data["senderEmailAddress"].ToString(), data["senderName"].ToString() }
+                    }
+                );
+            }
+            catch (Exception ex) {
+                log.LogError($"Failed to update message: {ex.Message.ToString()}");
+                // return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+                return new RedirectResult("https://new.wherwellcc.co.uk/contactfailed");
+            }
+
+            try {
+                await mail.SendMessage(log);
             }
             catch (Exception ex) {
                 log.LogError($"Failed to send message: {ex.Message.ToString()}");
-                return new RedirectResult("https://new.wherwellcc.co.uk/contactfailed.html");
+                //return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+                return new RedirectResult("https://new.wherwellcc.co.uk/contactfailed");
             }
+
+            //return new OkResult();
+            return new RedirectResult("https://new.wherwellcc.co.uk/contactsuccess");
         }
     }
 }

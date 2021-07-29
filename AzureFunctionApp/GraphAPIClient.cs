@@ -24,34 +24,34 @@ namespace WherwellCC.Contact
         public string ext_expires_in { get; set; }
         public string access_token { get; set; }
 
-        public async Task<GraphAPIClient> NewAccessToken(
-            string clientId, 
-            string tenantName, 
-            string clientSecret, 
-            ILogger log
-        )
+        public async Task<GraphAPIClient> NewAccessToken(ILogger log)
         {
+            
             Dictionary<string, string> ReqTokenBody = new Dictionary <string, string>
             {
                 { "Grant_Type", "client_credentials" },
                 { "Scope", "https://graph.microsoft.com/.default" },
-                { "client_Id", clientId },
-                { "client_Secret", clientSecret }
+                { "client_Id", System.Environment.GetEnvironmentVariable("AAD_APP_ID_WHERWELLCC_ADMIN") },
+                { "client_Secret", System.Environment.GetEnvironmentVariable("AAD_APP_SECRET_WHERWELLCC_ADMIN") }
             };
             var content = new FormUrlEncodedContent(ReqTokenBody);
             log.LogInformation("Getting new access token");
-            var response = await client.PostAsync($"https://login.microsoftonline.com/{tenantName}/oauth2/v2.0/token", content);
+            var response = await client.PostAsync($"https://login.microsoftonline.com/cookadamcouk.onmicrosoft.com/oauth2/v2.0/token", content);
             response.EnsureSuccessStatusCode();
             var responseString = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<GraphAPIClient>(responseString);
         }
 
         public async Task<HttpResponseMessage> SendData(
+            ILogger log,
             string method, 
-            string path, 
-            string body
+            string url, 
+            string body = "{}"
         )
         {
+            log.LogInformation("Sending request to Graph");
+            log.LogInformation($"Method: {method} - URL: {url} - Body: {body}");
+
             var content = new StringContent(body, Encoding.UTF8, "application/json");
             HttpResponseMessage response = new HttpResponseMessage();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", this.access_token);
@@ -59,10 +59,10 @@ namespace WherwellCC.Contact
             switch (method)
             {
                 case "POST":
-                    response = await client.PostAsync(path, content);
+                    response = await client.PostAsync(url, content);
                     break;
                 case "PATCH":
-                    response = await client.PatchAsync(path, content);
+                    response = await client.PatchAsync(url, content);
                     break;
             }
             

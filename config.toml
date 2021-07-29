@@ -103,7 +103,7 @@ unsafe = true
 
   [params.contact]
     service = "custom"
-    url = "https://api.wherwellcc.co.uk/api/HttpTrigger1"
+    url = "https://wherwellcc.azurewebsites.net/api/HttpTrigger1"
 
     [[params.links]]
       service = "Twitter"

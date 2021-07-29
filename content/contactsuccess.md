@@ -2,4 +2,6 @@
 draft: false
 ---
 
-# Contact failed
+# Message sent
+
+Your message has been successfully sent.
