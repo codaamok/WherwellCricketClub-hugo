@@ -43,9 +43,14 @@ namespace WherwellCC.Contact
                 log.LogInformation($"- {item}: {data[item.ToString()]}");
             }
 
+            string message = $@"<p><b>Name:</b> {data["senderName"].ToString()}</p>
+<p><b>Email:</b> {data["senderEmailAddress"].ToString()}</p>
+<p><b>Message:</b> {data["message"].ToString()}</p>
+<p><i>Replying to this email will be replying to the sender using their address above.</i></p>";
+
             GraphAPIMailClient mail = new GraphAPIMailClient(
                 subject: "Website Contact",
-                content: String.Join("\n", data["message"].ToString()),
+                content: message,
                 toRecipients: new Dictionary<string, string> 
                 { 
                     { "admin@wherwellcc.co.uk", "Wherwell Cricket Club" }
