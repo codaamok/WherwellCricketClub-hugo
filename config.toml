@@ -29,47 +29,57 @@ unsafe = true
     weight = 1
 
   [[menu.main]]
+    name = "Sponsors"
+    url = "/sponsors"
+    weight = 2
+
+  [[menu.main]]
     name = "Play Cricket"
     url = "https://wherwell.play-cricket.com"
-    weight = 2
+    weight = 3
 
   [[menu.main]]
     name = "Reports"
     url = "/categories/xi-reports/"
-    weight = 3
+    weight = 4
 
   [[menu.main]]
     name = "Wherwell XI"
     parent = "Reports"
     url = "/categories/xi-reports/"
-    weight = 4
+    weight = 5
 
   [[menu.main]]
     name = "Friendlies"
     parent = "Reports"
     url = "/categories/friendlyreports/"
-    weight = 5
+    weight = 6
 
   [[menu.main]]
     name = "Averages"
     parent = "Reports"
     url = "/averages"
-    weight = 6
+    weight = 7
 
   [[menu.main]]
     name = "Shop"
     url = "https://seriouscricket.co.uk/teamwear/stores/wherwell-cricket-club"
-    weight = 7
+    weight = 8
 
   [[menu.main]]
     name = "Club Documents"
     url = "/documents"
-    weight = 8
+    weight = 9
+
+  [[menu.main]]
+    name = "Find us"
+    url = "/findus"
+    weight = 10
 
   [[menu.main]]
     name = "Contact"
     url = "#cta"
-    weight = 9
+    weight = 11
 
 # Paramaters for the whole site
 [params]

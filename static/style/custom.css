@@ -21,6 +21,7 @@ div.box p img {
     width: 100%;
 }
 
-img[alt$="Wherwell"] { 
-    
+td {
+    text-align: center;
+    vertical-align: middle;
 }

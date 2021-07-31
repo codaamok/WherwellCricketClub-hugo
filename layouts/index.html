@@ -76,7 +76,7 @@
 				<section id="cta"><a name="call-to-action"></a>
 
 					<h2>{{ .Params.CTA.heading}}</h2>
-					<p>{{ .Params.CTA.message}}</p>
+					<p>{{ .Params.CTA.message | markdownify }}</p>
 					{{ partial "contact" .}}
 
 				</section>

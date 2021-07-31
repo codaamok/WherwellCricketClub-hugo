@@ -3,7 +3,9 @@ draft: false
 ---
 
 {{< rawhtml >}}
-<span class="icon major fal fa-map-marker-alt accent5" style="display: table; margin: 0 auto; text-align: center; margin-bottom: 1.5em" aria-hidden="true"></span>
+<p align="center">
+<span class="icon major fal fa-map-marker-alt accent5" style="text-align: center; margin: 0;" aria-hidden="true"></span>
+</p>
 {{< /rawhtml >}}
 # Address
 
@@ -20,7 +22,6 @@ SP11 7JP<br />
 # Directions
 
 Wherwell is on the B3420 between Andover and Winchester.
-
 
 From London; head down the M3 towards Southampton. At junction 8 leave the M3 and follow the A303 west. You will cross the A34 and a couple of miles later you will see a sign taking you off to the left, sign posted to Wherwell. Follow that winding road for a couple of until you enter the village. You will see the ground on the left hand side.
 

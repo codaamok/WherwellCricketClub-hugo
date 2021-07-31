@@ -56,4 +56,5 @@
 
 [CTA]
   heading = "Contact Us"
+  message = "You can find us on [Google Maps](https://www.google.com/maps/place/Wherwell+Cricket+Club/@51.1696842,-1.4382492,16z/data=!4m12!1m6!3m5!1s0x0:0x4da9c4ee1bdef3e!2sWherwell+Cricket+Club!8m2!3d51.1703704!4d-1.4350413!3m4!1s0x0:0x4da9c4ee1bdef3e!8m2!3d51.1703704!4d-1.4350413) or get directions to our ground on the [Find Us](/findus) page</a>"
 +++
