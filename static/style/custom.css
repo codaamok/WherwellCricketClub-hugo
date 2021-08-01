@@ -25,3 +25,9 @@ td {
     text-align: center;
     vertical-align: middle;
 }
+
+div#sponsors-table img {
+    width: 100%;
+    min-width: 100px;
+}
+  

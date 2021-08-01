@@ -2,11 +2,10 @@
 draft: false
 ---
 
-{{< rawhtml >}}
 <p align="center">
 <span class="icon major fal fa-map-marker-alt accent5" style="text-align: center; margin: 0;" aria-hidden="true"></span>
 </p>
-{{< /rawhtml >}}
+
 # Address
 
 Anna Jenkins Sports Pavilion<br />
@@ -15,9 +14,7 @@ Longparish Road<br />
 Wherwell<br />
 SP11 7JP<br />
 
-{{< rawhtml >}}
 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2501.643018361476!2d-1.43723534813848!3d51.17037037948107!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4874089ffeb17c3b%3A0x4da9c4ee1bdef3e!2sWherwell%20Cricket%20Club!5e0!3m2!1sen!2suk!4v1622982379106!5m2!1sen!2suk" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-{{< /rawhtml >}}
 
 # Directions
 
