@@ -64,7 +64,7 @@ namespace WherwellCC.Contact
             catch (Exception ex) {
                 log.LogError($"Failed to create message: {ex.Message.ToString()}");
                 // return new StatusCodeResult(StatusCodes.Status500InternalServerError);
-                return new RedirectResult("https://new.wherwellcc.co.uk/contactfailed");
+                return new RedirectResult("https://wherwellcc.co.uk/contactfailed");
             }
 
             try {
@@ -79,7 +79,7 @@ namespace WherwellCC.Contact
             catch (Exception ex) {
                 log.LogError($"Failed to update message: {ex.Message.ToString()}");
                 // return new StatusCodeResult(StatusCodes.Status500InternalServerError);
-                return new RedirectResult("https://new.wherwellcc.co.uk/contactfailed");
+                return new RedirectResult("https://wherwellcc.co.uk/contactfailed");
             }
 
             try {
@@ -88,11 +88,11 @@ namespace WherwellCC.Contact
             catch (Exception ex) {
                 log.LogError($"Failed to send message: {ex.Message.ToString()}");
                 //return new StatusCodeResult(StatusCodes.Status500InternalServerError);
-                return new RedirectResult("https://new.wherwellcc.co.uk/contactfailed");
+                return new RedirectResult("https://wherwellcc.co.uk/contactfailed");
             }
 
             //return new OkResult();
-            return new RedirectResult("https://new.wherwellcc.co.uk/contactsuccess");
+            return new RedirectResult("https://wherwellcc.co.uk/contactsuccess");
         }
     }
 }

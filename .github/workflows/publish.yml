@@ -36,4 +36,4 @@ jobs:
           user_name: codaamok
           user_email: github@cookadam.co.uk
           publish_branch: master
-          cname: new.wherwellcc.co.uk
+          cname: wherwellcc.co.uk
