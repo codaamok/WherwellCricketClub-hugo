@@ -74,7 +74,8 @@
 
 			{{ "<!-- CTA -->" | safeHTML }}
 				<section id="cta"><a name="call-to-action"></a>
-
+				
+					<img id="ctalogo" src="/img/logo.png"/>
 					<h2>{{ .Params.CTA.heading}}</h2>
 					<p>{{ .Params.CTA.message | markdownify }}</p>
 					{{ partial "contact" .}}

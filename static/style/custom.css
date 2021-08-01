@@ -17,6 +17,10 @@ header.major {
     border: 1px solid white;
 }
 
+#ctalogo {
+    padding: 2em 0 0 0;
+}
+
 div.box p img {
     width: 100%;
 }
